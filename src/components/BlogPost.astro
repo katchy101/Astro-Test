@@ -1,0 +1,6 @@
+---
+    const allPosts = await Astro.glob('../pages/posts/*.md');
+    const { title, url } = Astro.props;
+---
+
+<li><a href={url}>{title}</a></li>
