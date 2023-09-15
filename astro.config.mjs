@@ -1,16 +1,16 @@
 import { defineConfig } from 'astro/config';
 import storyblok from '@storyblok/astro';
 import { loadEnv } from 'vite';
-import preact from "@astrojs/preact";
 import tailwind from "@astrojs/tailwind";
 import basicSsl from '@vitejs/plugin-basic-ssl';
 import vercel from "@astrojs/vercel/serverless";
+import react from "@astrojs/react";
 const env = loadEnv("", process.cwd(), 'STORYBLOK');
 
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [preact(), tailwind(), storyblok({
+  integrations: [ tailwind(), storyblok({
     accessToken: env.STORYBLOK_TOKEN,
     components: {
       page: 'storyblok/Page',
@@ -21,15 +21,18 @@ export default defineConfig({
       hero: 'storyblok/Hero',
       article: 'storyblok/Article',
       'popular-articles': 'storyblok/PopularArticles',
-      'all-articles': 'storyblok/AllArticles',
+      'all-articles': 'storyblok/AllArticles'
     }
-  })],
+  }), react()],
   vite: {
     plugins: [basicSsl()],
     server: {
       https: true
+    },
+    optimizeDeps: {
+      exclude: ['js-big-decimal']
     }
   },
-  output: "hybrid",
-  adapter: vercel()
+  output: "server",
+  adapter: vercel(),
 });

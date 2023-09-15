@@ -8,7 +8,7 @@ const { data } = await storyblokApi.get('cdn/stories/config', {
 const headerMenu = data?.story?.content?.header_menu
 ---
  
-<header class="w-full h-24 bg-[#f7f6fd]">
+<header class="w-full h-24 bg-[#f7f6fd] fixed z-10 top-0">
   <div class="container h-full mx-auto flex items-center justify-between">
     <a href="/">
       <h1 class="text-[#50b0ae] text-3xl font-bold">Storyblok Astro</h1>

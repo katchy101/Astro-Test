@@ -1,9 +1,10 @@
 ---
-
+export const prerender = true;
 import { useStoryblokApi } from '@storyblok/astro'
 //@ts-ignore
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
+import TestComponent from '../components/TestReactComponent.jsx'
 
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi()
@@ -35,7 +36,7 @@ const { data } = await storyblokApi.get(
 )
 const story = data.story
 ---
-
 <BaseLayout>
   <StoryblokComponent blok={story.content} />
 </BaseLayout>
+<TestComponent client:visible />
