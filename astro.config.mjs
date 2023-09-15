@@ -17,7 +17,11 @@ export default defineConfig({
       feature: 'storyblok/Feature',
       grid: 'storyblok/Grid',
       teaser: 'storyblok/Teaser',
-      config: 'storyblok/Config'
+      config: 'storyblok/Config',
+      hero: 'storyblok/Hero',
+      article: 'storyblok/Article',
+      'popular-articles': 'storyblok/PopularArticles',
+      'all-articles': 'storyblok/AllArticles',
     }
   })],
   vite: {
@@ -26,6 +30,6 @@ export default defineConfig({
       https: true
     }
   },
-  output: "server",
+  output: "hybrid",
   adapter: vercel()
 });

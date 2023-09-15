@@ -7,10 +7,10 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi()
-
   const { data } = await storyblokApi.get('cdn/links', {
     version: 'draft',
   })
+  console.log(data)
 
   let links = data.links
   links = Object.values(links)
@@ -30,6 +30,7 @@ const { data } = await storyblokApi.get(
   `cdn/stories/${slug === undefined ? 'home' : slug}`,
   {
     version: 'draft',
+    resolve_relations: ['popular-articles.articles'],
   }
 )
 const story = data.story
