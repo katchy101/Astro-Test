@@ -20,6 +20,7 @@ export default defineConfig({
       config: 'storyblok/Config',
       hero: 'storyblok/Hero',
       article: 'storyblok/Article',
+      content: 'storyblok/ContentBlock',
       'popular-articles': 'storyblok/PopularArticles',
       'all-articles': 'storyblok/AllArticles'
     }

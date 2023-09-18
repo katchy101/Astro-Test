@@ -1,4 +1,5 @@
-import {react, useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
+
 
 const TestComponent = () => {
     const [compState, setCompState] = useState<any>(null);
