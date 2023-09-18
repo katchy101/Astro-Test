@@ -18,15 +18,11 @@ export async function getStaticPaths() {
   links = Object.values(links)
 
   return links.map((link:any) => {
-    console.log(`[...slug] - 21 link`,link);
-    // if(link.slug !== '/config' && link.slug !== '/home'){
     return {
           params: {
-            slug: (link.slug === '/home' ) ? undefined : link.slug,
+            slug: (link.slug === 'home' || link.slug === 'config'|| link.slug === 'blogs') ? undefined : link.slug,
           }, 
         }
-    // }
-   
   })
   
 }
@@ -34,6 +30,7 @@ const { slug } = Astro.params
 const storyblokApi = useStoryblokApi()
 const { data } = await storyblokApi.get(
   `cdn/stories/${slug === undefined ? 'home' : slug}`,
+  
   {
     version: 'draft',
     resolve_relations: ['popular-articles.articles'],
@@ -44,4 +41,5 @@ const story = data.story
 <BaseLayout>
   <StoryblokComponent blok={story.content} />
 </BaseLayout>
+
 <TestComponent client:visible />

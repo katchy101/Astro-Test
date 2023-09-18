@@ -6,10 +6,7 @@ const TestComponent = () => {
     useEffect(() => {
         setCompState('Hello')
     },[])
-    return <>
-        <h1 >Hello</h1>
-        <br />
-        <button onClick={() => setCompState('Hello Alex')}>{compState}</button></>
+    return <><button onClick={() => setCompState('Hello Alex')}>{compState}</button></>
     
 }
 

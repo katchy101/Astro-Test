@@ -1,7 +1,12 @@
 ---
+ export const prerender = true
 import { storyblokEditable, renderRichText } from '@storyblok/astro'
 const { blok } = Astro.props
 const renderedRichText = renderRichText(blok.content)
+import { Image } from 'astro:assets';
+const resp = await fetch(`https://pokeapi.co/api/v2/pokemon/${Math.floor(Math.random() * (500 - 1 + 1) + 1)}`);
+const data = await resp.json();
+console.log(`Article - 8 resp`,data);
 
 ---
  
@@ -22,3 +27,8 @@ const renderedRichText = renderRichText(blok.content)
     <div class="prose" set:html={renderedRichText} />
   </div>
 </article>
+<div>
+  <Image src={data.sprites['front_default']} width={200} height={200} alt={data.id} />
+  <span>{data.name}</span>
+ </div>
+ <br>
