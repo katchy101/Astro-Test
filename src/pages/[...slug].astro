@@ -5,7 +5,7 @@ import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import TestComponent from '../components/TestReactComponent.jsx'
 
-export const prerender = true;
+// export const prerender = true;
 
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi()
@@ -19,13 +19,13 @@ export async function getStaticPaths() {
 
   return links.map((link:any) => {
     console.log(`[...slug] - 21 link`,link);
-    if(link.slug !== '/config' && link.slug !== '/home'){
+    // if(link.slug !== '/config' && link.slug !== '/home'){
     return {
           params: {
             slug: (link.slug === '/home' ) ? undefined : link.slug,
           }, 
         }
-    }
+    // }
    
   })
   
