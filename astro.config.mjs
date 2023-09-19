@@ -3,7 +3,7 @@ import storyblok from '@storyblok/astro';
 import { loadEnv } from 'vite';
 import tailwind from "@astrojs/tailwind";
 import basicSsl from '@vitejs/plugin-basic-ssl';
-import vercel from "@astrojs/vercel/serverless";
+import vercel from '@astrojs/vercel/serverless';
 import react from "@astrojs/react";
 const env = loadEnv("", process.cwd(), 'STORYBLOK');
 
@@ -34,6 +34,6 @@ export default defineConfig({
       exclude: ['js-big-decimal']
     }
   },
-  server: "server",
+  output: "server",
   adapter:vercel()
 });
