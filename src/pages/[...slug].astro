@@ -5,18 +5,15 @@ import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import TestComponent from '../components/TestReactComponent.jsx'
 
-// export const prerender = true;
+export const prerender = false;
 
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi()
   const { data } = await storyblokApi.get('cdn/links', {
     version: 'draft',
   })
-  console.log(data)
-
   let links = data.links
   links = Object.values(links)
-
   return links.map((link:any) => {
     return {
           params: {
@@ -43,3 +40,5 @@ const story = data.story
 </BaseLayout>
 
 <TestComponent client:visible />
+
+<div><h2>Test</h2></div>

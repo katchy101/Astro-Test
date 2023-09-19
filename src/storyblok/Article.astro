@@ -1,12 +1,50 @@
 ---
- export const prerender = true
+export const prerender = true
 import { storyblokEditable, renderRichText } from '@storyblok/astro'
+import PokemonComp from '../components/PokemonComponent'
 const { blok } = Astro.props
 const renderedRichText = renderRichText(blok.content)
 import { Image } from 'astro:assets';
 const resp = await fetch(`https://pokeapi.co/api/v2/pokemon/${Math.floor(Math.random() * (500 - 1 + 1) + 1)}`);
 const data = await resp.json();
-console.log(`Article - 8 resp`,data);
+let image = await fetchImageFromText("cat jumps over the moom");
+
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary);
+}
+
+async function fetchImageFromText(renderedRichText: string): Promise<string | null> {
+    let image: string | null = null;
+    const form = new FormData();
+    form.append('prompt', renderedRichText); // Changed the key to 'prompt'
+
+    try {
+        const response = await fetch('https://clipdrop-api.co/text-to-image/v1', {
+            method: 'POST',
+            headers: {
+                'x-api-key': '2fac71504cb2d261b72dd8672a0aec864bcce8651ac697d247249ac09b52ea4e24157a35b1f73cfb6041595097df4cb0', // Replace this with a secure way to access the API key
+            },
+            body: form,
+        });
+        const buffer = await response.arrayBuffer();
+        
+        // Convert buffer to base64 data URL
+        const base64Flag = 'data:image/jpeg;base64,';
+        const imageStr = arrayBufferToBase64(buffer);
+        image = base64Flag + imageStr;
+    } catch (error) {
+        console.error("Error fetching the image:", error);
+    }
+
+    return image;
+}
+
 
 ---
  
@@ -24,9 +62,13 @@ console.log(`Article - 8 resp`,data);
     <h2 class="text-2xl text-[#1d243d] font-bold mb-4">
       {blok.subtitle}
     </h2>
+    <img src={image} width={500} height={250} alt="test"/>
     <div class="prose" set:html={renderedRichText} />
   </div>
 </article>
+<div class="bg-red">
+  <PokemonComp client:load />
+</div>
 <div>
   <Image src={data.sprites['front_default']} width={200} height={200} alt={data.id} />
   <span>{data.name}</span>
