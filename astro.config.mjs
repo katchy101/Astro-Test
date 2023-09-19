@@ -33,5 +33,7 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ['js-big-decimal']
     }
-  }
+  },
+  server: "server",
+  adapter:vercel()
 });
