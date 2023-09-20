@@ -14,16 +14,16 @@ const { blok } = Astro.props
 const renderedRichText = renderRichText(blok.content)
 const resp = await fetch(`https://pokeapi.co/api/v2/pokemon/${Math.floor(Math.random() * (500 - 1 + 1) + 1)}`);
 const data = await resp.json();
-let image = await fetchImageFromText("Create an hero image for an article that is about"+blok.title);
-
+let image = blok.image.filename == '' && blok.image.filename != null ? await fetchImageFromText("Create an hero image for an article that is about"+blok.title) : blok.image.filename
+console.log(blok)
 ---
 
 <article {...storyblokEditable(blok)}>
   <div class="flex w-full">
     <img
       class="w-full h-[360px] lg:h-[450px] object-cover"
-      alt={blok.image.alt}
-      src={`${image}/m/1600x0`}
+      alt={''}
+      src={`${image}`}
     />
   </div>
   <div class="container mx-auto mb-12">
@@ -33,7 +33,6 @@ let image = await fetchImageFromText("Create an hero image for an article that i
     <h2 class="text-2xl text-[#1d243d] font-bold mb-4">
       {blok.subtitle}
     </h2>
-    <img src={image} width={500} height={250} alt="test"/>
     <div class="prose" set:html={renderedRichText} />
   </div>
 </article>
